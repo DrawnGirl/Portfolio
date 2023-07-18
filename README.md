@@ -5,7 +5,7 @@ My name is Izabela Przeniosło.
 After graduating from high school, I started my adventure with technology by buying parts and assembling my first computer.  
 I continued learning on my own by working in different repair shops where I learned how to repair devices such as laptops, smartphones, tablets, headphones, wearable devices and computer accessories.  
 I also worked as a QA, responsible for checking phone PCBs after refurbishment.  
-In the meantime, I also started studying Computer Science with a specialisation in PHP and Magento. Unfortunately, due to personal reasons, I had to interrupt my studies at the beginning of the 3rd year.  
+In the meantime, I completed a 2-year degree in Computer Science with a specialisation in PHP and Magento.     
 Shortly after, I met a friend who had been working as a tester for a few years and he introduced me to this world.  
 Thanks to this friendship, I decided that I wanted to develop in this direction and dedicate my future to software testing.☺  
 📎👉 <a href="https://www.linkedin.com/in/izabela-przenioslo/">My LinkedIn Profile</a>  
@@ -15,18 +15,19 @@ Thanks to this friendship, I decided that I wanted to develop in this direction 
 + **ShareX** - Screen capture software
 + **Xampp** - Local web server development environment
 + **Slack** - Team collaboration and communication platform.
-+ **Jira, Trello** - Issue tracking and project management tool for developers
++ **Jira, Trello** - Issue tracking and project management tools
 + **Testrail** -  Test cases management
 + **code2flow** - Visual tool for creating flowcharts
-+ **DevTools** - Browser-based developer debugging and inspection
++ **DevTools** - Browser-based developer tools for debugging and inspection
 + **Github, Gitlab**
 # My Tech skills 💻
 + Software Manual Testing
-+ Writing **Test cases** and **Bug raports**
++ Writing **Test cases** and **Bug reports**
++ Writing **Test reports**
 + **Black-box** testing
 + **White-box** testing
 + **SCRUM**
-+ **SQL**
++ **MySQL**
 # My Soft skills 🤝
 + **Communication** - Clearly conveying testing procedures, issues, and reports to team members, developers, and stakeholders.
 + **Attention to Detail** - Being meticulous in observing and documenting software behavior, identifying bugs, and providing accurate information.
@@ -39,6 +40,9 @@ Thanks to this friendship, I decided that I wanted to develop in this direction 
 📎👉 <a href="https://docs.google.com/spreadsheets/d/1kds9_MwOZCMiJhTvuCZW15Hdr9TIowSmDQOorX0ybb0/edit?usp=sharing">Bug report</a>  
 📎👉 <a href="https://docs.google.com/document/d/1Gu6HebRCrGp9FNibCCU9dV4L6incLgXFBDPDvIshpuk/edit?usp=sharing">Test report</a>  
 📎👉 <a href="https://docs.google.com/spreadsheets/d/1rEmvnlmlfQOP9lMbGRDrnqdIKBZGE7bIegh1aOfewkM/edit?usp=sharing">Mobile Bug report</a>  
+
+📎👉 <a href="https://docs.google.com/document/d/1PYyuCEkZKc4Us27XEaXnm8-tUt2GAchsLrgA_qU8XGs/edit?usp=sharing">My Project QA - Kapu$ta</a>  
+
 # My Certificates 📝
 - ISTQB - in progress
 # My Courses 🖋
