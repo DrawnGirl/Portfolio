@@ -24,7 +24,7 @@ Dziś łączę to wszystko: **dokładność w pracy z danymi i konfiguracją sys
 
 # Projekty 💁‍♀️
 ### Automatyzacja publikacji postów na Instagramie
-Workflow z 45 węzłów, który zamienia temat z kolejki w Notion w opublikowaną karuzelę albo rolkę: treść pisana przez AI, zdjęcia, generowane grafiki lub wideo, sprawdzanie duplikatów, logowanie i powiadomienia na Discordzie.  
+Workflow z 45 węzłami, który zamienia temat z kolejki w Notion w opublikowaną karuzelę albo rolkę: treść pisana przez AI, zdjęcia, generowane grafiki lub wideo, sprawdzanie duplikatów, logowanie i powiadomienia na Discordzie.  
 **Narzędzia:** n8n, Instagram Graph API, OpenAI, Notion, Cloudinary  
 📎👉 <a href="projects/ig-content-automation/README_PL.md">Opis projektu i workflow</a>
 
