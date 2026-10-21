@@ -19,13 +19,13 @@ Today I combine all of this: **accuracy with data and system configuration, test
 # What I work on now 🎯
 + **Product and menu data** - checking that products, prices, modifiers and availability are consistent across sales channels
 + **Testing changes** - verifying that a change works as intended and describing bugs so they can be fixed quickly
-+ **Process automation** - building workflows in n8n and Make.com that replace manual, repetitive work
++ **Process automation** - building workflows in n8n that replace manual, repetitive work (I started out with Make.com)
 + **Process documentation** - turning procedures into clear, easy-to-use tools for the team
 
 # Projects 💁‍♀️
 ### Instagram post automation
 A workflow that prepares and publishes posts to an Instagram account without manual work.  
-**Tools:** n8n / Make.com
+**Tools:** n8n
 
 ### Opening shift checklist
 A mobile HTML app with the restaurant opening procedure, in two variants: delivery day and regular day. It helps the shift team follow the procedure step by step and makes training easier.  
@@ -55,7 +55,7 @@ Manual testing of a web application: requirements analysis, test cases, function
 + Comparing data and catching inconsistencies
 
 **Automation and AI**
-+ n8n, Make.com
++ n8n (main tool), Make.com
 + Notion
 + Claude
 

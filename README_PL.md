@@ -19,13 +19,13 @@ Dziś łączę to wszystko: **dokładność w pracy z danymi i konfiguracją sys
 # Czym się teraz zajmuję 🎯
 + **Dane produktów i menu** - sprawdzanie, czy produkty, ceny, modyfikacje i dostępność są spójne we wszystkich kanałach sprzedaży
 + **Testowanie zmian** - weryfikacja, czy zmiana działa zgodnie z założeniami, i opisywanie błędów tak, żeby dało się je szybko naprawić
-+ **Automatyzacja procesów** - workflowy w n8n i Make.com, które zastępują ręczną, powtarzalną pracę
++ **Automatyzacja procesów** - workflowy w n8n, które zastępują ręczną, powtarzalną pracę (zaczynałam od Make.com)
 + **Dokumentowanie procesów** - zamienianie procedur w proste, wygodne narzędzia dla zespołu
 
 # Projekty 💁‍♀️
 ### Automatyzacja publikacji postów na Instagramie
 Workflow, który przygotowuje i publikuje posty na koncie IG bez ręcznej pracy.  
-**Narzędzia:** n8n / Make.com
+**Narzędzia:** n8n
 
 ### Checklista otwarcia zmiany
 Mobilna aplikacja HTML z procedurą otwarcia restauracji, w dwóch wariantach: dzień dostawy i zwykły dzień. Pomaga zespołowi przejść przez procedurę krok po kroku i ułatwia szkolenie nowych osób.  
@@ -55,7 +55,7 @@ Testy manualne aplikacji webowej: analiza wymagań, przypadki testowe, testy fun
 + Porównywanie danych i wyłapywanie niezgodności
 
 **Automatyzacja i AI**
-+ n8n, Make.com
++ n8n (główne narzędzie), Make.com
 + Notion
 + Claude
 
