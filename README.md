@@ -6,7 +6,7 @@
 📎👉 <a href="https://www.linkedin.com/in/izabela-przenioslo/">Mój profil na LinkedIn</a>
 
 # Kim jestem? 🧐
-Cześć! 👋 Lubię pilnować, żeby systemy pokazywały dokładnie to, co powinny.
+Cześć! 👋 Jestem Iza i lubię pilnować, żeby systemy pokazywały dokładnie to, co powinny.
 
 Moja przygoda z technologią zaczęła się od złożenia pierwszego komputera i naprawiania laptopów, smartfonów i innych urządzeń w serwisach. Pracowałam tam też jako QA, kontrolując płyty główne smartfonów po naprawie.
 

@@ -6,7 +6,7 @@
 📎👉 <a href="https://www.linkedin.com/in/izabela-przenioslo/">My LinkedIn Profile</a>
 
 # Who am I? 🧐
-Hello! 👋 I like making sure systems show exactly what they should.
+Hello! 👋 I'm Izabela, and I like making sure systems show exactly what they should.
 
 My path into tech started with assembling my first computer and repairing laptops, smartphones and other devices in service centres. There I also worked as a QA, checking phone PCBs after refurbishment.
 
