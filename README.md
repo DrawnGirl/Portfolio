@@ -19,7 +19,7 @@ Today I combine all of this: **accuracy with data and system configuration, test
 # What I work on now 🎯
 + **Product and menu data** - checking that products, prices, modifiers and availability are consistent across sales channels
 + **Testing changes** - verifying that a change works as intended and describing bugs so they can be fixed quickly
-+ **Process automation** - building workflows in n8n that replace manual, repetitive work (I started out with Make.com)
++ **Process automation** - building workflows in n8n that replace manual, repetitive work
 + **Process documentation** - turning procedures into clear, easy-to-use tools for the team
 
 # Projects 💁‍♀️
@@ -55,7 +55,8 @@ Manual testing of a web application: requirements analysis, test cases, function
 + Comparing data and catching inconsistencies
 
 **Automation and AI**
-+ n8n (main tool), Make.com
++ n8n
++ Webhooks and APIs in n8n workflows
 + Notion
 + Claude
 
@@ -67,7 +68,7 @@ Manual testing of a web application: requirements analysis, test cases, function
 # Tools 🛠
 + **Jira, Trello** - issue tracking and project management
 + **DevTools** - debugging and inspecting web pages
-+ **n8n, Make.com** - workflow automation
++ **n8n** - workflow automation
 + **Notion** - documentation and knowledge base
 + **ShareX** - screenshots and recordings for bug reports
 

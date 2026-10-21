@@ -19,7 +19,7 @@ Dziś łączę to wszystko: **dokładność w pracy z danymi i konfiguracją sys
 # Czym się teraz zajmuję 🎯
 + **Dane produktów i menu** - sprawdzanie, czy produkty, ceny, modyfikacje i dostępność są spójne we wszystkich kanałach sprzedaży
 + **Testowanie zmian** - weryfikacja, czy zmiana działa zgodnie z założeniami, i opisywanie błędów tak, żeby dało się je szybko naprawić
-+ **Automatyzacja procesów** - workflowy w n8n, które zastępują ręczną, powtarzalną pracę (zaczynałam od Make.com)
++ **Automatyzacja procesów** - workflowy w n8n, które zastępują ręczną, powtarzalną pracę
 + **Dokumentowanie procesów** - zamienianie procedur w proste, wygodne narzędzia dla zespołu
 
 # Projekty 💁‍♀️
@@ -55,7 +55,8 @@ Testy manualne aplikacji webowej: analiza wymagań, przypadki testowe, testy fun
 + Porównywanie danych i wyłapywanie niezgodności
 
 **Automatyzacja i AI**
-+ n8n (główne narzędzie), Make.com
++ n8n
++ Webhooki i API w workflowach n8n
 + Notion
 + Claude
 
@@ -67,7 +68,7 @@ Testy manualne aplikacji webowej: analiza wymagań, przypadki testowe, testy fun
 # Narzędzia 🛠
 + **Jira, Trello** - śledzenie zadań i zarządzanie projektem
 + **DevTools** - debugowanie i inspekcja stron internetowych
-+ **n8n, Make.com** - automatyzacja workflowów
++ **n8n** - automatyzacja workflowów
 + **Notion** - dokumentacja i baza wiedzy
 + **ShareX** - zrzuty i nagrania ekranu do raportów błędów
 
