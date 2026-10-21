@@ -34,7 +34,7 @@
           },
           "conditions": [
             {
-              "id": "YOUR_NOTION_DATABASE_ID",
+              "id": "queue-cond-001",
               "leftValue": "={{ $json.body.action }}",
               "rightValue": "queue",
               "operator": {
