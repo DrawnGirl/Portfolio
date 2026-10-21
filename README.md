@@ -31,8 +31,7 @@ A 45-node workflow that turns a topic from a Notion queue into a published carou
 ### Opening shift checklist
 A mobile HTML app with the restaurant opening procedure, in two variants: delivery day and regular day. It helps the shift team follow the procedure step by step and makes training easier.  
 **Tools:** HTML, CSS, JavaScript  
-📎👉 <a href="https://drawngirl.github.io/Portfolio/projects/opening-checklist/">Try the demo (best on a phone)</a>  
-*The public demo uses generic steps; the real version holds internal procedures.*
+📎👉 <a href="https://drawngirl.github.io/checklist/">Open the checklist (best on a phone)</a>
 
 ### QA project - Kapu$ta
 Manual testing of a web application: requirements analysis, test cases, functional and UX/UI testing, bug reports.  
