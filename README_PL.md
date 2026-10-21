@@ -30,7 +30,9 @@ Workflow z 45 węzłów, który zamienia temat z kolejki w Notion w opublikowan�
 
 ### Checklista otwarcia zmiany
 Mobilna aplikacja HTML z procedurą otwarcia restauracji, w dwóch wariantach: dzień dostawy i zwykły dzień. Pomaga zespołowi przejść przez procedurę krok po kroku i ułatwia szkolenie nowych osób.  
-**Narzędzia:** HTML, CSS, JavaScript
+**Narzędzia:** HTML, CSS, JavaScript  
+📎👉 <a href="https://drawngirl.github.io/Portfolio/projects/opening-checklist/">Wypróbuj demo (najlepiej na telefonie)</a>  
+*Publiczne demo ma ogólne kroki; prawdziwa wersja zawiera wewnętrzne procedury.*
 
 ### Projekt QA - Kapu$ta
 Testy manualne aplikacji webowej: analiza wymagań, przypadki testowe, testy funkcjonalne i UX/UI, raporty błędów.  
