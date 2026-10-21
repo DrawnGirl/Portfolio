@@ -50,7 +50,7 @@ Manual testing of a web application: requirements analysis, test cases, function
 + E-commerce: product catalogue, variants, prices (PHP, Magento)
 
 **Testing and quality**
-+ Manual testing, black-box and white-box
++ Manual testing of changes and new features
 + Writing test cases, bug reports and test reports
 + Comparing data and catching inconsistencies
 
@@ -66,12 +66,10 @@ Manual testing of a web application: requirements analysis, test cases, function
 
 # Tools 🛠
 + **Jira, Trello** - issue tracking and project management
-+ **Postman** - REST API testing
 + **DevTools** - debugging and inspecting web pages
-+ **Testrail** - test case management
 + **n8n, Make.com** - workflow automation
 + **Notion** - documentation and knowledge base
-+ **Bug magnet, ShareX, code2flow, Xampp**
++ **ShareX** - screenshots and recordings for bug reports
 
 # Soft skills 🤝
 + **Attention to detail** - careful work with data, configuration and documentation

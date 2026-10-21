@@ -50,7 +50,7 @@ Testy manualne aplikacji webowej: analiza wymagań, przypadki testowe, testy fun
 + E-commerce: katalog produktów, warianty, ceny (PHP, Magento)
 
 **Testowanie i jakość**
-+ Testowanie manualne, black-box i white-box
++ Testowanie manualne zmian i nowych funkcji
 + Pisanie przypadków testowych, raportów błędów i raportów z testów
 + Porównywanie danych i wyłapywanie niezgodności
 
@@ -66,12 +66,10 @@ Testy manualne aplikacji webowej: analiza wymagań, przypadki testowe, testy fun
 
 # Narzędzia 🛠
 + **Jira, Trello** - śledzenie zadań i zarządzanie projektem
-+ **Postman** - testowanie REST API
 + **DevTools** - debugowanie i inspekcja stron internetowych
-+ **Testrail** - zarządzanie przypadkami testowymi
 + **n8n, Make.com** - automatyzacja workflowów
 + **Notion** - dokumentacja i baza wiedzy
-+ **Bug magnet, ShareX, code2flow, Xampp**
++ **ShareX** - zrzuty i nagrania ekranu do raportów błędów
 
 # Umiejętności miękkie 🤝
 + **Dbałość o szczegóły** - staranna praca z danymi, konfiguracją i dokumentacją
