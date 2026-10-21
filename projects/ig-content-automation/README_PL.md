@@ -8,6 +8,9 @@ Workflow w n8n, który zamienia temat z bazy w Notion w gotowy post na Instagram
 
 **Skala:** 45 węzłów · codzienne uruchomienie o 9:00 · działa produkcyjnie na koncie @calmyourtech
 
+![Workflow w edytorze n8n](workflow.png)
+*Cały workflow w edytorze n8n: górna gałąź to karuzela, druga to rolka.*
+
 ## Jak to działa
 
 ```mermaid

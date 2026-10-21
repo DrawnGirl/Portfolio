@@ -8,6 +8,9 @@ An n8n workflow that turns a topic from a Notion database into a finished Instag
 
 **Scale:** 45 nodes · runs daily at 9:00 · live on the @calmyourtech account
 
+![Workflow in the n8n editor](workflow.png)
+*The full workflow in the n8n editor: top branch = carousel, second branch = reel.*
+
 ## How it works
 
 ```mermaid
