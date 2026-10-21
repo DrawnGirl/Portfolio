@@ -1,0 +1,1570 @@
+{
+  "name": "IG Content Automation (portfolio export)",
+  "nodes": [
+    {
+      "name": "Webhook",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2.1,
+      "position": [
+        128,
+        -560
+      ],
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "digital-minimalism",
+        "options": {}
+      },
+      "webhookId": "REDACTED"
+    },
+    {
+      "name": "If",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.3,
+      "position": [
+        352,
+        -560
+      ],
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 3
+          },
+          "conditions": [
+            {
+              "id": "YOUR_NOTION_DATABASE_ID",
+              "leftValue": "={{ $json.body.action }}",
+              "rightValue": "queue",
+              "operator": {
+                "type": "string",
+                "operation": "equals",
+                "name": "filter.operator.equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {
+          "ignoreCase": false
+        }
+      }
+    },
+    {
+      "name": "GPT‑4o Request",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.4,
+      "position": [
+        1696,
+        -944
+      ],
+      "parameters": {
+        "method": "POST",
+        "url": "https://api.openai.com/v1/chat/completions",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Authorization",
+              "value": "YOUR_AUTHORIZATION"
+            },
+            {
+              "name": "Content-Type",
+              "value": "application/json"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"model\": \"gpt-4o\",\n  \"max_tokens\": 1500,\n  \"messages\": [\n    {\n      \"role\": \"system\",\n      \"content\": \"You are a sharp, non-preachy digital minimalism content creator. Your audience already feels the problem — overwhelmed, distracted, unable to think clearly. They do not want advice. They want someone to name what they're experiencing. Your voice: calm, precise, slightly unsettling — like a friend who noticed something you haven't admitted yet. No clichés. No wellness language. No lectures. Return ONLY valid JSON — no markdown, no backticks, no explanation.\"\n    },\n    {\n      \"role\": \"user\",\n      \"content\": \"Here is an example of EXCELLENT content. Mirror this voice exactly.\\n\\nTopic: Boredom as a lost skill\\nSlide 1 hook headline: \\\"You haven't been bored in three years.\\\"\\nSlide 1 hook subtext: \\\"Every gap gets filled. A queue, a feed, a podcast.\\\"\\nSlide 2 problem headline: \\\"Your default mode network is starving.\\\"\\nSlide 2 problem subtext: \\\"This is the brain state where creativity and memory happen. Screens crowd it out.\\\"\\nSlide 3 tip_1 headline: \\\"Leave your phone in another room.\\\"\\nSlide 3 tip_1 subtext: \\\"Not on silent. Not face-down. In another room. Start with one hour a day.\\\"\\nSlide 4 tip_2 headline: \\\"Walk without anything playing.\\\"\\nSlide 4 tip_2 subtext: \\\"No podcast, no music. Twenty minutes. Let your mind go where it wants.\\\"\\nSlide 5 micro_story headline: \\\"She sits on the train and does nothing.\\\"\\nSlide 5 micro_story subtext: \\\"No phone. Just the window. By the time she gets off, she's solved something she wasn't trying to solve.\\\"\\nSlide 6 cta headline: \\\"When did you last do nothing?\\\"\\nSlide 6 cta subtext: \\\"Not scroll. Not listen. Nothing. Drop the last time below — a year ago? Last week?\\\"\\ncaption: \\\"Boredom used to be unavoidable. You'd wait for the bus and just… wait. No podcast. No scroll. Just time and your own thoughts.\\\\n\\\\nSomewhere along the way, we patched every gap. The commute. The queue. The two minutes before sleep. Every idle moment became an input slot.\\\\n\\\\nHere's what no one talks about: your brain needs those gaps. The default mode network — the part that handles creativity, memory consolidation, and self-reflection — only activates when you're doing nothing in particular. It doesn't turn on during a podcast. It doesn't run while you scroll.\\\\n\\\\nWe're not just distracted. We're starving a core function.\\\\n\\\\nTwo things worth trying: leave your phone in another room for one hour. Walk somewhere without anything playing. See what your mind does when you stop feeding it.\\\\n\\\\nIt might feel uncomfortable. That discomfort is the point.\\\\n\\\\nSave this for the next time you catch yourself filling a gap.\\n\\nWhen did you last sit somewhere and do absolutely nothing? 👇\\\"\\nfirst_comment: \\\"#digitalminimalism #attentionhygiene #mindfultech #screentime #slowliving #digitalboundaries #deepwork #intentionalliving #focusmode #overstimulation #brainhealth #mentalclarity #techbalance #conscioustech #presentmoment #mindfulliving #dopaminedetox #cognitiveload #notificationfatigue #phonefreelife\\\"\\nimage_keyword: \\\"empty park bench morning light\\\"\\n\\nNow generate for:\\nTopic: {{ $json.body.topic }}\\nSummary: {{ $json.body.summary }}\\nTone: {{ $json.body.tone }}\\n\\nCRITICAL RULES:\\n- Your slides MUST directly address the specific topic and summary above. Do not drift to adjacent themes.\\n- The HOOK HEADLINE (slide 1) must reference the core subject of the topic — not a generic digital minimalism angle.\\n- Every slide must stay on the topic provided. If the topic is about sleep, every slide must be about sleep. If about relationships, every slide about relationships.\\n- The summary contains the key facts and angles to use — incorporate them, do not ignore them.\\n\\nRules:\\n- headline: max 9 words\\n- subtext: max 25 words\\n- HOOK HEADLINE (slide 1): MUST use 'you' or 'your' — OR state a specific observable behavior/fact. NEVER metaphor, NEVER simile, NEVER poetic comparison (e.g. NOT 'X like Y', NOT 'X buried like Z')\\n- BANNED PHRASES: healthy mind, quiet moments, wellness journey, self-care, mindfulness journey, digital detox, peace of mind, slow down, be present, reconnect, hustle, toxic, vibe, holistic, empower, transform, journey, digital noise, digital space, buried like, shines with, forgotten memories, wake up, unplug\\n- caption: 150-220 words. Lines 1-2: open with a specific behavior or observation (second person) AND embed 1-2 searchable keywords naturally (e.g. 'screen time', 'digital detox', 'phone addiction', 'attention span') — Instagram indexes early caption text for search; this is the primary discovery signal in 2026. Weave them into prose, never force them. Rest: calm, precise, non-preachy. Max 2 emojis. No hashtags. Include exactly one natural save CTA woven into the closing (e.g. 'Save this for your next reset', 'Bookmark this before you forget') — never forced or generic\\n- first_comment: exactly 20 hashtags with # symbol, space-separated (secondary discovery signal — Instagram removed hashtag follows Dec 2024; keywords in caption lines 1-2 are the primary signal)\\n- image_keyword: 3-5 words, calm minimal lifestyle, no phones no screens no UI\"\n    }\n  ]\n}",
+        "options": {},
+        "authentication": "none",
+        "nodeCredentialType": ""
+      }
+    },
+    {
+      "name": "Notion API",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.4,
+      "position": [
+        576,
+        -704
+      ],
+      "parameters": {
+        "method": "POST",
+        "url": "https://api.notion.com/v1/pages",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Authorization",
+              "value": "YOUR_AUTHORIZATION"
+            },
+            {
+              "name": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "name": "Notion-Version",
+              "value": "2022-06-28"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"parent\": { \"database_id\": \"YOUR_NOTION_DATABASE_ID\" },\n  \"properties\": {\n    \"Topic\": {\n      \"title\": [{ \"text\": { \"content\": \"{{ $json.body.topic }}\" } }]\n    },\n    \"Status\": { \"select\": { \"name\": \"Queued\" } },\n    \"Summary\": {\n      \"rich_text\": [{ \"text\": { \"content\": \"{{ $json.body.summary }}\" } }]\n    },\n    \"Priority\": {\n      \"select\": { \"name\": \"{{ $json.body.metadata.priority }}\" }\n    },\n    \"Category\": {\n      \"select\": { \"name\": \"{{ $json.body.metadata.category }}\" }\n    },\n    \"Source\": {\n      \"select\": { \"name\": \"{{ $json.body.metadata.source }}\" }\n    },\n    \"Trend Score\": {\n      \"number\": {{ $json.body.metadata.trend_score }}\n    }\n  }\n}",
+        "options": {}
+      }
+    },
+    {
+      "name": "Notion Published Posts",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.4,
+      "position": [
+        3040,
+        -1152
+      ],
+      "parameters": {
+        "method": "POST",
+        "url": "https://api.notion.com/v1/pages",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Authorization",
+              "value": "YOUR_AUTHORIZATION"
+            },
+            {
+              "name": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "name": "Notion-Version",
+              "value": "2022-06-28"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"parent\": {\n    \"database_id\": \"YOUR_NOTION_DATABASE_ID\"\n  },\n  \"properties\": {\n    \"Topic\": {\n      \"title\": [{ \"text\": { \"content\": \"{{ $('Restore Body').first().json.body.topic }}\" } }]\n    },\n    \"Status\": {\n      \"select\": { \"name\": \"Published\" }\n    },\n    \"Caption\": {\n      \"rich_text\": [{ \"text\": { \"content\": \"{{ $('Merge Metadata').first().json.caption.replace(/\\n/g, ' ') }}\" } }]\n    },\n    \"Hashtags\": {\n      \"rich_text\": [{ \"text\": { \"content\": \"{{ $('Merge Metadata').first().json.first_comment }}\" } }]\n    },\n    \"Image URL\": {\n      \"url\": \"{{ $('Merge Metadata').first().json.image_url }}\"\n    },\n    \"Instagram Media ID\": {\n      \"rich_text\": [{ \"text\": { \"content\": \"{{ $('Instagram Publish').first().json.id }}\" } }]\n    },\n    \"Category\": {\n      \"select\": { \"name\": \"{{ $('Restore Body').first().json.body.metadata.category }}\" }\n    },\n    \"Campaign Tag\": {\n      \"select\": { \"name\": \"{{ $('Restore Body').first().json.body.metadata.campaign_tag || 'none' }}\" }\n    },\n    \"Post Type\": {\n      \"select\": { \"name\": \"{{ $('Restore Body').first().json.body.metadata.post_type }}\" }\n    },\n    \"Published At\": {\n      \"date\": { \"start\": \"{{ new Date().toISOString() }}\" }\n    },\n    \"Trend Score\": {\n      \"number\": {{ $('Restore Body').first().json.body.metadata.trend_score || 0 }}\n    },\n    \"Source\": {\n      \"select\": { \"name\": \"{{ $('Restore Body').first().json.body.metadata.source }}\" }\n    }\n  }\n}",
+        "options": {}
+      }
+    },
+    {
+      "name": "Parse GPT Response",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1920,
+        -944
+      ],
+      "parameters": {
+        "jsCode": "const raw = $input.first().json.choices[0].message.content;\nconst cleaned = raw.replace(/^```(?:json)?\\s*/i, '').replace(/\\s*```$/i, '').trim();\n\nlet parsed;\ntry {\n  parsed = JSON.parse(cleaned);\n} catch (e) {\n  throw new Error('GPT JSON parse failed. Raw: ' + cleaned.substring(0, 300));\n}\n\nconst roles = ['hook', 'problem', 'tip_1', 'tip_2', 'micro_story', 'cta'];\nlet slides = [];\n\nfunction extractSlide(obj, index) {\n  // Standard: {headline, subtext}\n  if (obj.headline && obj.subtext) {\n    return { index: obj.index || index, role: obj.role || roles[index-1], headline: obj.headline, subtext: obj.subtext };\n  }\n  // Role-prefixed: {hook_headline, hook_subtext} or {tip_1_headline, tip_1_subtext}\n  const hKey = Object.keys(obj).find(k => k.endsWith('_headline'));\n  const sKey = Object.keys(obj).find(k => k.endsWith('_subtext'));\n  if (hKey && sKey) {\n    return { index: index, role: hKey.replace('_headline',''), headline: obj[hKey], subtext: obj[sKey] };\n  }\n  return null;\n}\n\nif (Array.isArray(parsed.slides)) {\n  slides = parsed.slides.map((s, i) => extractSlide(s, i + 1)).filter(Boolean);\n} else if (parsed.slides && typeof parsed.slides === 'object') {\n  slides = Object.values(parsed.slides).map((s, i) => extractSlide(s, i + 1)).filter(Boolean);\n} else {\n  // Top-level flat: {slide_1_hook_headline, slide_2_problem_headline, ...}\n  for (let i = 1; i <= 6; i++) {\n    const hKey = Object.keys(parsed).find(k => k.startsWith('slide_' + i + '_') && k.endsWith('_headline'));\n    const sKey = Object.keys(parsed).find(k => k.startsWith('slide_' + i + '_') && k.endsWith('_subtext'));\n    if (hKey && sKey) {\n      const role = hKey.replace('slide_' + i + '_', '').replace('_headline', '');\n      slides.push({ index: i, role, headline: parsed[hKey], subtext: parsed[sKey] });\n    }\n  }\n}\n\nif (!slides.length || !slides[0].headline) {\n  throw new Error('No slides with headline extracted. Keys: ' + Object.keys(parsed).join(', ') + ' | First slide keys: ' + (parsed.slides && Array.isArray(parsed.slides) ? Object.keys(parsed.slides[0]).join(', ') : 'n/a'));\n}\n\nreturn slides.map(slide => ({\n  json: {\n    slide_index:   slide.index,\n    slide_role:    slide.role,\n    headline:      slide.headline,\n    subtext:       slide.subtext,\n    caption:       parsed.caption,\n    first_comment: parsed.first_comment,\n    image_keyword: parsed.image_keyword\n  }\n}));"
+      }
+    },
+    {
+      "name": "Pexels Search",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.4,
+      "position": [
+        2144,
+        -944
+      ],
+      "parameters": {
+        "url": "https://api.pexels.com/v1/search",
+        "sendQuery": true,
+        "queryParameters": {
+          "parameters": [
+            {
+              "name": "query",
+              "value": "={{ $('Parse GPT Response').first().json.image_keyword }}"
+            },
+            {
+              "name": "per_page",
+              "value": "10"
+            },
+            {
+              "name": "orientation",
+              "value": "square"
+            }
+          ]
+        },
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Authorization",
+              "value": "YOUR_AUTHORIZATION"
+            }
+          ]
+        },
+        "options": {}
+      }
+    },
+    {
+      "name": "Instagram Container",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.4,
+      "position": [
+        1248,
+        -1152
+      ],
+      "parameters": {
+        "method": "POST",
+        "url": "https://graph.instagram.com/v21.0/YOUR_IG_ACCOUNT_ID/media",
+        "sendBody": true,
+        "contentType": "form-urlencoded",
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "image_url",
+              "value": "={{ $json.image_url }}"
+            },
+            {
+              "name": "is_carousel_item",
+              "value": "true"
+            },
+            {
+              "name": "access_token",
+              "value": "YOUR_ACCESS_TOKEN"
+            }
+          ]
+        },
+        "options": {}
+      }
+    },
+    {
+      "name": "Instagram Publish",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.4,
+      "position": [
+        2144,
+        -1152
+      ],
+      "parameters": {
+        "method": "POST",
+        "url": "https://graph.instagram.com/v21.0/YOUR_IG_ACCOUNT_ID/media_publish",
+        "sendBody": true,
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "creation_id",
+              "value": "={{ $json.id }}"
+            },
+            {
+              "name": "access_token",
+              "value": "YOUR_ACCESS_TOKEN"
+            }
+          ]
+        },
+        "options": {
+          "allowUnauthorizedCerts": false
+        }
+      }
+    },
+    {
+      "name": "Collect Slide Data",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        3040,
+        -944
+      ],
+      "parameters": {
+        "jsCode": "const items = $input.all();\nconst image_urls = items.map(i => i.json.secure_url);\nreturn [{\n  json: {\n    image_urls:    image_urls,\n    caption:       $('Parse GPT Response').first().json.caption,\n    first_comment: $('Parse GPT Response').first().json.first_comment\n  }\n}];"
+      }
+    },
+    {
+      "name": "Split Image URLs",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        3264,
+        -944
+      ],
+      "parameters": {
+        "jsCode": "const urls = $input.first().json.image_urls;\nconst caption = $input.first().json.caption;\nconst first_comment = $input.first().json.first_comment;\n\nreturn urls.map(url => ({\n  json: {\n    image_url: url,\n    caption: caption,\n    first_comment: first_comment\n  }\n}));"
+      }
+    },
+    {
+      "name": "Collect Container IDs",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1472,
+        -1152
+      ],
+      "parameters": {
+        "jsCode": "const items = $input.all();\n\nconst children = items.map(i => i.json.id);\n\nreturn [{\n  json: {\n    children: children,\n    caption: $('Collect Slide Data').first().json.caption,\n    first_comment: $('Collect Slide Data').first().json.first_comment\n  }\n}];"
+      }
+    },
+    {
+      "name": "Wait for IG Processing",
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1.1,
+      "position": [
+        1920,
+        -1152
+      ],
+      "parameters": {
+        "amount": 60
+      },
+      "webhookId": "REDACTED"
+    },
+    {
+      "name": "Create Carousel Container",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.4,
+      "position": [
+        1696,
+        -1152
+      ],
+      "parameters": {
+        "method": "POST",
+        "url": "https://graph.instagram.com/v21.0/YOUR_IG_ACCOUNT_ID/media",
+        "sendBody": true,
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "media_type",
+              "value": "CAROUSEL"
+            },
+            {
+              "name": "children",
+              "value": "={{ $json.children.join(',') }}"
+            },
+            {
+              "name": "caption",
+              "value": "={{ $json.caption }}"
+            },
+            {
+              "name": "access_token",
+              "value": "YOUR_ACCESS_TOKEN"
+            }
+          ]
+        },
+        "options": {}
+      }
+    },
+    {
+      "name": "Post First Comment",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.4,
+      "position": [
+        2816,
+        -1152
+      ],
+      "parameters": {
+        "method": "POST",
+        "url": "=https://graph.instagram.com/v21.0/{{ $('Instagram Publish').first().json.id }}/comments",
+        "sendBody": true,
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "message",
+              "value": "={{ $('Merge Metadata').first().json.first_comment }}"
+            },
+            {
+              "name": "access_token",
+              "value": "YOUR_ACCESS_TOKEN"
+            }
+          ]
+        },
+        "options": {}
+      }
+    },
+    {
+      "name": "Wait",
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1.1,
+      "position": [
+        2368,
+        -1152
+      ],
+      "parameters": {
+        "amount": 10
+      },
+      "webhookId": "REDACTED"
+    },
+    {
+      "name": "Schedule Trigger",
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.3,
+      "position": [
+        -96,
+        -896
+      ],
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "triggerAtHour": 9
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "Fetch Next from Queue",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.4,
+      "position": [
+        128,
+        -896
+      ],
+      "parameters": {
+        "method": "POST",
+        "url": "https://api.notion.com/v1/databases/YOUR_NOTION_DATABASE_ID/query",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Authorization",
+              "value": "YOUR_AUTHORIZATION"
+            },
+            {
+              "name": "Notion-Version",
+              "value": "2022-06-28"
+            },
+            {
+              "name": "Content-Type",
+              "value": "application/json"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "{\"filter\":{\"property\":\"Status\",\"select\":{\"equals\":\"Approved\"}},\"sorts\":[{\"timestamp\":\"created_time\",\"direction\":\"ascending\"}],\"page_size\":1}",
+        "options": {}
+      }
+    },
+    {
+      "name": "IF Has Post",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.3,
+      "position": [
+        352,
+        -896
+      ],
+      "parameters": {
+        "conditions": {
+          "options": {
+            "version": 2,
+            "leftValue": "",
+            "caseSensitive": true,
+            "typeValidation": "strict"
+          },
+          "conditions": [
+            {
+              "id": "has-results",
+              "leftValue": "={{ $json.results.length }}",
+              "rightValue": 0,
+              "operator": {
+                "type": "number",
+                "operation": "gt"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      }
+    },
+    {
+      "name": "Prepare Payload",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        576,
+        -896
+      ],
+      "parameters": {
+        "jsCode": "const result = $input.first().json.results[0];\nconst props = result.properties;\n\nconst getString = (p) => p?.rich_text?.[0]?.plain_text || p?.title?.[0]?.plain_text || '';\nconst getSelect = (p) => p?.select?.name || '';\nconst getNumber = (p) => p?.number || 0;\n\nreturn [{\n  json: {\n    body: {\n      action: 'publish',\n      topic: getString(props.Topic),\n      summary: getString(props.Summary),\n      tone: getSelect(props.Tone),\n      image_keyword: getString(props['Image Keyword']),\n      notion_page_id: result.id,\n      metadata: {\n        category: getSelect(props.Category),\n        priority: getSelect(props.Priority),\n        platform: 'instagram',\n        post_type: getSelect(props['Post Type']) || 'carousel',\n        trend_score: getNumber(props['Trend Score']),\n        source: getSelect(props.Source),\n        campaign_tag: getSelect(props['Campaign Tag']),\n        scheduled_time: '',\n        skip_reason: ''\n      }\n    }\n  }\n}];"
+      }
+    },
+    {
+      "name": "IF Skip?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.3,
+      "position": [
+        576,
+        -464
+      ],
+      "parameters": {
+        "conditions": {
+          "options": {
+            "version": 3,
+            "leftValue": "",
+            "caseSensitive": true,
+            "typeValidation": "strict"
+          },
+          "conditions": [
+            {
+              "id": "skip-cond-001",
+              "leftValue": "={{ $json.body.action }}",
+              "rightValue": "skip",
+              "operator": {
+                "type": "string",
+                "operation": "equals",
+                "name": "filter.operator.equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      }
+    },
+    {
+      "name": "Log Skip to Notion",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.4,
+      "position": [
+        800,
+        -416
+      ],
+      "parameters": {
+        "method": "POST",
+        "url": "https://api.notion.com/v1/pages",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Authorization",
+              "value": "YOUR_AUTHORIZATION"
+            },
+            {
+              "name": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "name": "Notion-Version",
+              "value": "2022-06-28"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"parent\": { \"database_id\": \"YOUR_NOTION_DATABASE_ID\" },\n  \"properties\": {\n    \"Topic\": { \"title\": [{ \"text\": { \"content\": \"{{ $json.body.topic }}\" } }] },\n    \"Status\": { \"select\": { \"name\": \"Skipped\" } },\n    \"Caption\": { \"rich_text\": [{ \"text\": { \"content\": \"Skip reason: {{ $json.body.metadata.skip_reason }}\" } }] },\n    \"Category\": { \"select\": { \"name\": \"{{ $json.body.metadata.category }}\" } },\n    \"Campaign Tag\": { \"select\": { \"name\": \"{{ $json.body.metadata.campaign_tag || 'none' }}\" } },\n    \"Post Type\": { \"select\": { \"name\": \"carousel\" } },\n    \"Published At\": { \"date\": { \"start\": \"{{ new Date().toISOString() }}\" } },\n    \"Trend Score\": { \"number\": {{ $json.body.metadata.trend_score || 0 }} },\n    \"Source\": { \"select\": { \"name\": \"{{ $json.body.metadata.source }}\" } }\n  }\n}",
+        "options": {}
+      }
+    },
+    {
+      "name": "Check Duplicate",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.4,
+      "position": [
+        800,
+        -848
+      ],
+      "parameters": {
+        "method": "POST",
+        "url": "https://api.notion.com/v1/databases/YOUR_NOTION_DATABASE_ID/query",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Authorization",
+              "value": "YOUR_AUTHORIZATION"
+            },
+            {
+              "name": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "name": "Notion-Version",
+              "value": "2022-06-28"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"filter\": {\n    \"and\": [\n      {\n        \"property\": \"Topic\",\n        \"title\": { \"equals\": \"{{ $json.body.topic }}\" }\n      },\n      {\n        \"timestamp\": \"created_time\",\n        \"created_time\": { \"past_week\": {} }\n      }\n    ]\n  },\n  \"page_size\": 1\n}",
+        "options": {}
+      }
+    },
+    {
+      "name": "IF No Duplicate?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.3,
+      "position": [
+        1024,
+        -848
+      ],
+      "parameters": {
+        "conditions": {
+          "options": {
+            "version": 3,
+            "leftValue": "",
+            "caseSensitive": true,
+            "typeValidation": "strict"
+          },
+          "conditions": [
+            {
+              "id": "nodup-cond-001",
+              "leftValue": "={{ $json.results.length }}",
+              "rightValue": 0,
+              "operator": {
+                "type": "number",
+                "operation": "equals",
+                "name": "filter.operator.equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      }
+    },
+    {
+      "name": "Restore Body",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1248,
+        -944
+      ],
+      "parameters": {
+        "jsCode": "let body = {};\n\ntry {\n  const d = $('IF Skip?').item;\n  if (d && d.json && d.json.body && d.json.body.topic) {\n    body = d.json.body;\n  }\n} catch(e) {}\n\nif (!body.topic) {\n  try {\n    const d = $('Prepare Payload').first();\n    if (d && d.json && d.json.body && d.json.body.topic) {\n      body = d.json.body;\n    }\n  } catch(e) {}\n}\n\nreturn [{ json: { body } }];"
+      }
+    },
+    {
+      "name": "Discord — Published",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        3264,
+        -1152
+      ],
+      "parameters": {
+        "method": "POST",
+        "url": "https://discord.com/api/webhooks/YOUR_WEBHOOK",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"embeds\": [{\n    \"title\": \"✅ Post Published\",\n    \"color\": 3066993,\n    \"fields\": [\n      {\"name\": \"Topic\", \"value\": \"{{ $('Restore Body').first().json.body.topic }}\", \"inline\": true},\n      {\"name\": \"Category\", \"value\": \"{{ $('Restore Body').first().json.body.metadata.category }}\", \"inline\": true},\n      {\"name\": \"Post ID\", \"value\": \"{{ $('Instagram Publish').first().json.id }}\", \"inline\": false}\n    ],\n    \"footer\": {\"text\": \"Digital Minimalism Bot\"},\n    \"timestamp\": \"{{ new Date().toISOString() }}\"\n  }]\n}",
+        "options": {}
+      }
+    },
+    {
+      "name": "Discord — Queued",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        800,
+        -656
+      ],
+      "parameters": {
+        "method": "POST",
+        "url": "https://discord.com/api/webhooks/YOUR_WEBHOOK",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"embeds\": [{\n    \"title\": \"📅 Post Queued\",\n    \"color\": 3447003,\n    \"fields\": [\n      {\"name\": \"Topic\", \"value\": \"{{ $('Webhook').item.json.body.topic }}\", \"inline\": true},\n      {\"name\": \"Scheduled\", \"value\": \"{{ $('Webhook').item.json.body.metadata.scheduled_time || 'Not specified' }}\", \"inline\": true}\n    ],\n    \"footer\": {\"text\": \"Digital Minimalism Bot\"},\n    \"timestamp\": \"{{ new Date().toISOString() }}\"\n  }]\n}",
+        "options": {}
+      }
+    },
+    {
+      "name": "Discord — Skipped",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        1024,
+        -416
+      ],
+      "parameters": {
+        "method": "POST",
+        "url": "https://discord.com/api/webhooks/YOUR_WEBHOOK",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"embeds\": [{\n    \"title\": \"⏭️ Post Skipped\",\n    \"color\": 10197915,\n    \"fields\": [\n      {\"name\": \"Topic\", \"value\": \"{{ $('Webhook').item.json.body.topic }}\", \"inline\": true},\n      {\"name\": \"Reason\", \"value\": \"{{ $('Webhook').item.json.body.metadata.skip_reason || 'Not specified' }}\", \"inline\": true}\n    ],\n    \"footer\": {\"text\": \"Digital Minimalism Bot\"},\n    \"timestamp\": \"{{ new Date().toISOString() }}\"\n  }]\n}",
+        "options": {}
+      }
+    },
+    {
+      "name": "Get Duplicate Topic",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1248,
+        -752
+      ],
+      "parameters": {
+        "jsCode": "let body = {};\ntry {\n  const d = $('IF Skip?').item;\n  if (d && d.json && d.json.body && d.json.body.topic) {\n    body = d.json.body;\n  }\n} catch(e) {}\nif (!body.topic) {\n  try {\n    const d = $('Prepare Payload').first();\n    if (d && d.json && d.json.body && d.json.body.topic) {\n      body = d.json.body;\n    }\n  } catch(e) {}\n}\nreturn [{ json: { body } }];"
+      }
+    },
+    {
+      "name": "Discord — Duplicate",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        1472,
+        -752
+      ],
+      "parameters": {
+        "method": "POST",
+        "url": "https://discord.com/api/webhooks/YOUR_WEBHOOK",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"embeds\": [{\n    \"title\": \"🔁 Duplicate Detected\",\n    \"color\": 16753920,\n    \"fields\": [\n      {\"name\": \"Topic\", \"value\": \"{{ $json.body.topic }}\", \"inline\": true},\n      {\"name\": \"Action\", \"value\": \"Skipped — already published in last 7 days\", \"inline\": false}\n    ],\n    \"footer\": {\"text\": \"Digital Minimalism Bot\"},\n    \"timestamp\": \"{{ new Date().toISOString() }}\"\n  }]\n}",
+        "options": {}
+      }
+    },
+    {
+      "name": "Generate Slide Image",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.1,
+      "position": [
+        2592,
+        -944
+      ],
+      "parameters": {
+        "method": "POST",
+        "url": "http://127.0.0.1:3001/render",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Content-Type",
+              "value": "application/json"
+            }
+          ]
+        },
+        "sendBody": true,
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "headline",
+              "value": "={{ $json.headline }}"
+            },
+            {
+              "name": "subtext",
+              "value": "={{ $json.subtext }}"
+            },
+            {
+              "name": "image_url",
+              "value": "={{ $json.image_url }}"
+            },
+            {
+              "name": "style",
+              "value": "={{ $json.style }}"
+            }
+          ]
+        },
+        "options": {}
+      }
+    },
+    {
+      "name": "Upload to Cloudinary",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.1,
+      "position": [
+        2816,
+        -944
+      ],
+      "parameters": {
+        "method": "POST",
+        "url": "https://api.cloudinary.com/v1_1/YOUR_CLOUD_NAME/image/upload",
+        "sendBody": true,
+        "contentType": "multipart-form-data",
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "file",
+              "value": "={{ 'data:image/png;base64,' + $json.image_b64 }}"
+            },
+            {
+              "name": "upload_preset",
+              "value": "YOUR_UPLOAD_PRESET"
+            }
+          ]
+        },
+        "options": {}
+      }
+    },
+    {
+      "name": "Prepare Slide Data",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        2368,
+        -944
+      ],
+      "parameters": {
+        "jsCode": "const pexelsItems = $input.all();\nconst photos = pexelsItems[0].json.photos;\n\n// Category → visual style mapping\nconst category = $('Restore Body').first().json.body.metadata.category;\nconst styleMap = { philosophy: 'warm', identity: 'warm', attention: 'cool', work: 'cool' };\nconst style = styleMap[category] || 'dark';\n\nreturn pexelsItems.map((_, i) => {\n  const slideItem = $('Parse GPT Response').all()[i];\n  const imageUrl = (photos && photos.length > 0)\n    ? photos[i % photos.length].src.portrait\n    : 'https://images.pexels.com/photos/1029604/pexels-photo-1029604.jpeg';\n  return {\n    json: {\n      headline:  slideItem.json.headline,\n      subtext:   slideItem.json.subtext,\n      image_url: imageUrl,\n      style:     style\n    }\n  };\n});"
+      }
+    },
+    {
+      "name": "Mark as Used",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.1,
+      "position": [
+        3488,
+        -1152
+      ],
+      "parameters": {
+        "method": "PATCH",
+        "url": "={{ 'https://api.notion.com/v1/pages/' + $('Restore Body').first().json.body.topic_bank_id }}",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Authorization",
+              "value": "YOUR_AUTHORIZATION"
+            },
+            {
+              "name": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "name": "Notion-Version",
+              "value": "2022-06-28"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"properties\": {\n    \"Status\": { \"select\": { \"name\": \"Used\" } }\n  }\n}",
+        "options": {}
+      }
+    },
+    {
+      "name": "IF post_type",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.3,
+      "position": [
+        1472,
+        -944
+      ],
+      "parameters": {
+        "conditions": {
+          "options": {
+            "version": 3,
+            "leftValue": "",
+            "caseSensitive": true,
+            "typeValidation": "strict"
+          },
+          "conditions": [
+            {
+              "id": "post-type-cond-001",
+              "leftValue": "={{ $json.body.metadata.post_type }}",
+              "rightValue": "reel",
+              "operator": {
+                "type": "string",
+                "operation": "equals",
+                "name": "filter.operator.equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      }
+    },
+    {
+      "name": "GPT-4o Reel Request",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.4,
+      "position": [
+        1696,
+        -608
+      ],
+      "parameters": {
+        "method": "POST",
+        "url": "https://api.openai.com/v1/chat/completions",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Authorization",
+              "value": "YOUR_AUTHORIZATION"
+            },
+            {
+              "name": "Content-Type",
+              "value": "application/json"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"model\": \"gpt-4o\",\n  \"max_tokens\": 1500,\n  \"messages\": [\n    {\n      \"role\": \"system\",\n      \"content\": \"You are a sharp, non-preachy digital minimalism content creator making Instagram Reels. Return ONLY valid JSON — no markdown, no backticks, no explanation.\"\n    },\n    {\n      \"role\": \"user\",\n      \"content\": \"Create a 5-scene Instagram Reel about: {{ $json.body.topic }}\\nSummary: {{ $json.body.summary }}\\nTone: {{ $json.body.tone }}\\n\\nScene arc: hook / build / build / turn / closer\\nEach scene is a full-screen text card over a portrait background photo.\\n\\nRules:\\n- text: MAX 5 WORDS. A statement or fragment — not a sentence. Direct, almost blunt. No soft language. Examples: 'You check your phone 96 times.' / 'Your brain never finishes a thought.' / 'One hour. No phone. Try it.' The first scene MUST be a provocative fact, shocking stat, or direct challenge. No wellness clichés.\\n- duration_s: 2-3 seconds per scene\\n- image_keyword: 3-5 words, calm minimal lifestyle, NO phones NO screens NO UI\\n- caption: 150-220 words, calm precise non-preachy. Lines 1-2: embed 1-2 searchable keywords naturally (e.g. 'screen time', 'digital detox', 'phone addiction', 'attention span') — Instagram indexes early caption text for search in 2026; weave into prose, do not force. One natural save CTA woven into closing. No hashtags. Max 2 emojis.\\n- first_comment: exactly 20 hashtags with # symbol space-separated (secondary to keywords in caption lines 1-2)\\n\\nOutput a JSON object with exactly these fields:\\n- scenes: array of 5 objects each with index (1-5), role (hook/build/build/turn/closer), text, duration_s, image_keyword\\n- caption: string (150-220 words)\\n- first_comment: string (20 hashtags)\"\n    }\n  ]\n}",
+        "options": {},
+        "authentication": "none",
+        "nodeCredentialType": ""
+      }
+    },
+    {
+      "name": "Parse Reel Response",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1920,
+        -608
+      ],
+      "parameters": {
+        "jsCode": "const raw = $input.first().json.choices[0].message.content;\nconst cleaned = raw.replace(/^```(?:json)?\\s*/i, '').replace(/\\s*```$/i, '').trim();\n\nlet parsed;\ntry {\n  parsed = JSON.parse(cleaned);\n} catch(e) {\n  throw new Error('Reel JSON parse failed. Raw: ' + cleaned.substring(0, 300));\n}\n\nconst scenes = Array.isArray(parsed.scenes) ? parsed.scenes : Object.values(parsed.scenes || {});\n\nreturn scenes.map((s, i) => ({\n  json: {\n    scene_index:   s.index || i + 1,\n    scene_role:    s.role,\n    text:          s.text,\n    duration_s:    s.duration_s || 4,\n    image_keyword: s.image_keyword,\n    caption:       parsed.caption,\n    first_comment: parsed.first_comment\n  }\n}));"
+      }
+    },
+    {
+      "name": "Pexels Scene Images",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.4,
+      "position": [
+        2144,
+        -608
+      ],
+      "parameters": {
+        "url": "https://api.pexels.com/v1/search",
+        "sendQuery": true,
+        "queryParameters": {
+          "parameters": [
+            {
+              "name": "query",
+              "value": "={{ $json.image_keyword }}"
+            },
+            {
+              "name": "per_page",
+              "value": "5"
+            },
+            {
+              "name": "orientation",
+              "value": "portrait"
+            }
+          ]
+        },
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Authorization",
+              "value": "YOUR_AUTHORIZATION"
+            }
+          ]
+        },
+        "options": {}
+      }
+    },
+    {
+      "name": "Prepare Scene Data",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        2368,
+        -608
+      ],
+      "parameters": {
+        "jsCode": "const pexelsItems = $input.all();\n\nconst category = $('Restore Body').first().json.body.metadata.category;\nconst styleMap = { philosophy: 'warm', identity: 'warm', attention: 'cool', work: 'cool' };\nconst style = styleMap[category] || 'dark';\n\nreturn pexelsItems.map((item, i) => {\n  const sceneItem = $('Parse Reel Response').all()[i];\n  const photos = item.json.photos;\n  const imageUrl = (photos && photos.length > 0)\n    ? photos[0].src.portrait\n    : 'https://images.pexels.com/photos/1029604/pexels-photo-1029604.jpeg';\n  return {\n    json: {\n      text:       sceneItem.json.text,\n      duration_s: sceneItem.json.duration_s,\n      image_url:  imageUrl,\n      style:      style\n    }\n  };\n});"
+      }
+    },
+    {
+      "name": "Collect Scene Data",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        2592,
+        -608
+      ],
+      "parameters": {
+        "jsCode": "const items = $input.all();\nconst scenes = items.map(i => ({\n  text:       i.json.text,\n  duration_s: i.json.duration_s,\n  image_url:  i.json.image_url\n}));\nconst caption       = $('Parse Reel Response').first().json.caption;\nconst first_comment = $('Parse Reel Response').first().json.first_comment;\nconst image_url     = items[0].json.image_url;\nconst style         = items[0].json.style;\n\nreturn [{ json: { scenes, style, caption, first_comment, image_url } }];"
+      }
+    },
+    {
+      "name": "Generate Reel Video",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.4,
+      "position": [
+        2816,
+        -608
+      ],
+      "parameters": {
+        "method": "POST",
+        "url": "http://127.0.0.1:3001/render-reel",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Content-Type",
+              "value": "application/json"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ JSON.stringify({ scenes: $json.scenes, style: $json.style }) }}",
+        "options": {}
+      }
+    },
+    {
+      "name": "Upload Reel to Cloudinary",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.4,
+      "position": [
+        3040,
+        -608
+      ],
+      "parameters": {
+        "method": "POST",
+        "url": "https://api.cloudinary.com/v1_1/YOUR_CLOUD_NAME/video/upload",
+        "sendBody": true,
+        "contentType": "multipart-form-data",
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "file",
+              "value": "={{ 'data:video/mp4;base64,' + $json.video_b64 }}"
+            },
+            {
+              "name": "upload_preset",
+              "value": "YOUR_UPLOAD_PRESET"
+            }
+          ]
+        },
+        "options": {}
+      }
+    },
+    {
+      "name": "Instagram Reel Container",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.4,
+      "position": [
+        3264,
+        -608
+      ],
+      "parameters": {
+        "method": "POST",
+        "url": "https://graph.instagram.com/v21.0/YOUR_IG_ACCOUNT_ID/media",
+        "sendBody": true,
+        "contentType": "form-urlencoded",
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "media_type",
+              "value": "REELS"
+            },
+            {
+              "name": "video_url",
+              "value": "={{ $json.secure_url }}"
+            },
+            {
+              "name": "caption",
+              "value": "={{ $('Collect Scene Data').first().json.caption }}"
+            },
+            {
+              "name": "access_token",
+              "value": "YOUR_ACCESS_TOKEN"
+            }
+          ]
+        },
+        "options": {}
+      }
+    },
+    {
+      "name": "Wait Reel",
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1.1,
+      "position": [
+        3488,
+        -608
+      ],
+      "parameters": {
+        "amount": 90
+      },
+      "webhookId": "REDACTED"
+    },
+    {
+      "name": "Merge Metadata",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        2592,
+        -1152
+      ],
+      "parameters": {
+        "jsCode": "let first_comment, caption, image_url;\n\ntry {\n  const d = $('Collect Scene Data').first().json;\n  first_comment = d.first_comment;\n  caption       = d.caption;\n  image_url     = d.image_url;\n} catch(e) {\n  first_comment = $('Collect Container IDs').first().json.first_comment;\n  caption       = $('Collect Slide Data').first().json.caption;\n  image_url     = $('Pexels Search').first().json.photos[0].src.portrait;\n}\n\nreturn [{ json: { first_comment, caption, image_url } }];"
+      }
+    }
+  ],
+  "connections": {
+    "Webhook": {
+      "main": [
+        [
+          {
+            "node": "If",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If": {
+      "main": [
+        [
+          {
+            "node": "Notion API",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "IF Skip?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "GPT‑4o Request": {
+      "main": [
+        [
+          {
+            "node": "Parse GPT Response",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Parse GPT Response": {
+      "main": [
+        [
+          {
+            "node": "Pexels Search",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Instagram Container": {
+      "main": [
+        [
+          {
+            "node": "Collect Container IDs",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Instagram Publish": {
+      "main": [
+        [
+          {
+            "node": "Wait",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Collect Slide Data": {
+      "main": [
+        [
+          {
+            "node": "Split Image URLs",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Split Image URLs": {
+      "main": [
+        [
+          {
+            "node": "Instagram Container",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Collect Container IDs": {
+      "main": [
+        [
+          {
+            "node": "Create Carousel Container",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Wait for IG Processing": {
+      "main": [
+        [
+          {
+            "node": "Instagram Publish",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Create Carousel Container": {
+      "main": [
+        [
+          {
+            "node": "Wait for IG Processing",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Post First Comment": {
+      "main": [
+        [
+          {
+            "node": "Notion Published Posts",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Schedule Trigger": {
+      "main": [
+        [
+          {
+            "node": "Fetch Next from Queue",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Fetch Next from Queue": {
+      "main": [
+        [
+          {
+            "node": "IF Has Post",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "IF Has Post": {
+      "main": [
+        [
+          {
+            "node": "Prepare Payload",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "IF Skip?": {
+      "main": [
+        [
+          {
+            "node": "Log Skip to Notion",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Check Duplicate",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Prepare Payload": {
+      "main": [
+        [
+          {
+            "node": "Check Duplicate",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Check Duplicate": {
+      "main": [
+        [
+          {
+            "node": "IF No Duplicate?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "IF No Duplicate?": {
+      "main": [
+        [
+          {
+            "node": "Restore Body",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Get Duplicate Topic",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Notion Published Posts": {
+      "main": [
+        [
+          {
+            "node": "Discord — Published",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get Duplicate Topic": {
+      "main": [
+        [
+          {
+            "node": "Discord — Duplicate",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Notion API": {
+      "main": [
+        [
+          {
+            "node": "Discord — Queued",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Log Skip to Notion": {
+      "main": [
+        [
+          {
+            "node": "Discord — Skipped",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Generate Slide Image": {
+      "main": [
+        [
+          {
+            "node": "Upload to Cloudinary",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Upload to Cloudinary": {
+      "main": [
+        [
+          {
+            "node": "Collect Slide Data",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Pexels Search": {
+      "main": [
+        [
+          {
+            "node": "Prepare Slide Data",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Prepare Slide Data": {
+      "main": [
+        [
+          {
+            "node": "Generate Slide Image",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Discord — Published": {
+      "main": [
+        [
+          {
+            "node": "Mark as Used",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Restore Body": {
+      "main": [
+        [
+          {
+            "node": "IF post_type",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "IF post_type": {
+      "main": [
+        [
+          {
+            "node": "GPT-4o Reel Request",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "GPT‑4o Request",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "GPT-4o Reel Request": {
+      "main": [
+        [
+          {
+            "node": "Parse Reel Response",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Parse Reel Response": {
+      "main": [
+        [
+          {
+            "node": "Pexels Scene Images",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Pexels Scene Images": {
+      "main": [
+        [
+          {
+            "node": "Prepare Scene Data",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Prepare Scene Data": {
+      "main": [
+        [
+          {
+            "node": "Collect Scene Data",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Collect Scene Data": {
+      "main": [
+        [
+          {
+            "node": "Generate Reel Video",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Generate Reel Video": {
+      "main": [
+        [
+          {
+            "node": "Upload Reel to Cloudinary",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Upload Reel to Cloudinary": {
+      "main": [
+        [
+          {
+            "node": "Instagram Reel Container",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Instagram Reel Container": {
+      "main": [
+        [
+          {
+            "node": "Wait Reel",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Wait Reel": {
+      "main": [
+        [
+          {
+            "node": "Instagram Publish",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Wait": {
+      "main": [
+        [
+          {
+            "node": "Merge Metadata",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Merge Metadata": {
+      "main": [
+        [
+          {
+            "node": "Post First Comment",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1"
+  }
+}

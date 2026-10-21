@@ -24,8 +24,9 @@ Today I combine all of this: **accuracy with data and system configuration, test
 
 # Projects 💁‍♀️
 ### Instagram post automation
-A workflow that prepares and publishes posts to an Instagram account without manual work.  
-**Tools:** n8n
+A 45-node workflow that turns a topic from a Notion queue into a published carousel or reel: AI-written copy, photos, rendered graphics or video, duplicate check, logging and Discord notifications.  
+**Tools:** n8n, Instagram Graph API, OpenAI, Notion, Cloudinary  
+📎👉 <a href="projects/ig-content-automation/README.md">Project description and workflow</a>
 
 ### Opening shift checklist
 A mobile HTML app with the restaurant opening procedure, in two variants: delivery day and regular day. It helps the shift team follow the procedure step by step and makes training easier.  

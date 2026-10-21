@@ -24,8 +24,9 @@ Dziś łączę to wszystko: **dokładność w pracy z danymi i konfiguracją sys
 
 # Projekty 💁‍♀️
 ### Automatyzacja publikacji postów na Instagramie
-Workflow, który przygotowuje i publikuje posty na koncie IG bez ręcznej pracy.  
-**Narzędzia:** n8n
+Workflow z 45 węzłów, który zamienia temat z kolejki w Notion w opublikowaną karuzelę albo rolkę: treść pisana przez AI, zdjęcia, generowane grafiki lub wideo, sprawdzanie duplikatów, logowanie i powiadomienia na Discordzie.  
+**Narzędzia:** n8n, Instagram Graph API, OpenAI, Notion, Cloudinary  
+📎👉 <a href="projects/ig-content-automation/README_PL.md">Opis projektu i workflow</a>
 
 ### Checklista otwarcia zmiany
 Mobilna aplikacja HTML z procedurą otwarcia restauracji, w dwóch wariantach: dzień dostawy i zwykły dzień. Pomaga zespołowi przejść przez procedurę krok po kroku i ułatwia szkolenie nowych osób.  
