@@ -1,57 +1,57 @@
-🇬🇧 English | 🇵🇱 [Polski](README_PL.md)
+🇬🇧 [English](README_EN.md) | 🇵🇱 Polski
 
-[← Back to portfolio](../../README.md)
+[← Wróć do portfolio](../../README.md)
 
-# Instagram content automation (n8n)
+# Automatyzacja treści na Instagramie (n8n)
 
-An n8n workflow that turns a topic from a Notion database into a finished Instagram post: a carousel or a reel. It writes the copy, picks photos, generates graphics or video, publishes the post, adds the first comment and logs the result in Notion. Every step is reported on Discord.
+Workflow w n8n, który zamienia temat z bazy w Notion w gotowy post na Instagramie: karuzelę albo rolkę. Sam pisze treść, dobiera zdjęcia, generuje grafiki lub wideo, publikuje post, dodaje pierwszy komentarz i zapisuje wynik w Notion. O każdym kroku informuje na Discordzie.
 
-**Scale:** 45 nodes · runs daily at 9:00 · live on the @calmyourtech account
+**Skala:** 45 węzłów · codzienne uruchomienie o 9:00 · działa produkcyjnie na koncie @calmyourtech
 
-![Workflow in the n8n editor](workflow.png)
-*The full workflow in the n8n editor: top branch = carousel, second branch = reel.*
+![Workflow w edytorze n8n](workflow.png)
+*Cały workflow w edytorze n8n: górna gałąź to karuzela, druga to rolka.*
 
-## How it works
+## Jak to działa
 
 ```mermaid
 flowchart TD
-    A[Schedule 9:00<br/>or webhook] --> B[Fetch next topic<br/>from Notion queue]
-    B --> C{Duplicate?}
-    C -- yes --> D[Skip and notify<br/>on Discord]
-    C -- no --> E{Post type}
-    E -- carousel --> F[GPT-4o writes 5 slides]
-    F --> G[Pexels: pick photos]
-    G --> H[Render slide graphics]
-    H --> I[Upload to Cloudinary]
-    I --> J[Carousel container<br/>via Instagram Graph API]
-    E -- reel --> K[GPT-4o writes scenes]
-    K --> L[Pexels: scene photos]
-    L --> M[Render video]
-    M --> N[Upload to Cloudinary]
-    N --> O[Reel container<br/>via Instagram Graph API]
-    J --> P[Publish to IG]
+    A[Harmonogram 9:00<br/>albo webhook] --> B[Pobierz następny temat<br/>z kolejki w Notion]
+    B --> C{Duplikat?}
+    C -- tak --> D[Pomiń i powiadom<br/>na Discordzie]
+    C -- nie --> E{Typ posta}
+    E -- karuzela --> F[GPT-4o pisze 5 slajdów]
+    F --> G[Pexels: dobór zdjęć]
+    G --> H[Render grafik slajdów]
+    H --> I[Upload do Cloudinary]
+    I --> J[Kontener karuzeli<br/>w Instagram Graph API]
+    E -- rolka --> K[GPT-4o pisze sceny]
+    K --> L[Pexels: zdjęcia scen]
+    L --> M[Render wideo]
+    M --> N[Upload do Cloudinary]
+    N --> O[Kontener rolki<br/>w Instagram Graph API]
+    J --> P[Publikacja na IG]
     O --> P
-    P --> Q[First comment]
-    Q --> R[Log in Notion<br/>+ mark topic as used]
-    R --> S[Discord notification]
+    P --> Q[Pierwszy komentarz]
+    Q --> R[Zapis w Notion<br/>+ oznaczenie tematu jako użytego]
+    R --> S[Powiadomienie na Discordzie]
 ```
 
-## What this project shows
+## Co pokazuje ten projekt
 
-- **Working with APIs:** Instagram Graph API, OpenAI, Notion, Pexels, Cloudinary, Discord webhooks; HTTP requests with headers and parameters
-- **Data consistency:** duplicate check before publishing, marking used topics, logging every publish and every skip
-- **Logic and branching:** separate paths for carousels and reels, handling an empty queue, manually skipping a topic
-- **JavaScript code:** parsing GPT responses, mapping Notion data, assembling slide and scene data
-- **Prompt engineering:** a prompt with an example of target content and an enforced JSON format
-- **Async handling:** waiting for Instagram to process media before publishing
+- **Praca z API:** Instagram Graph API, OpenAI, Notion, Pexels, Cloudinary, webhooki Discorda; zapytania HTTP z nagłówkami i parametrami
+- **Spójność danych:** sprawdzanie duplikatów przed publikacją, oznaczanie użytych tematów, log każdej publikacji i każdego pominięcia
+- **Logika i rozgałęzienia:** osobne ścieżki dla karuzeli i rolki, obsługa pustej kolejki, ręczne pominięcie tematu
+- **Kod w JavaScript:** parsowanie odpowiedzi GPT, mapowanie danych z Notion, składanie danych slajdów i scen
+- **Prompt engineering:** prompt z przykładem wzorcowej treści i wymuszonym formatem JSON
+- **Obsługa asynchroniczności:** oczekiwanie, aż Instagram przetworzy media, zanim post zostanie opublikowany
 
-## Related workflows
+## Powiązane workflowy
 
-This workflow is part of a larger system:
-- **Post Analytics – 24h Pull:** a day after publishing, pulls post metrics and follower count and saves them in Notion
-- **Weekly Format Report:** compares reels vs carousels every week and sends a report to Discord
-- **Trend Scout:** generates new topics every week and adds them to the Notion database
+Ten workflow jest częścią większego systemu:
+- **Post Analytics – 24h Pull:** dzień po publikacji pobiera statystyki posta i liczbę obserwujących, zapisuje je w Notion
+- **Weekly Format Report:** co tydzień porównuje wyniki rolek i karuzel i wysyła raport na Discorda
+- **Trend Scout:** co tydzień generuje nowe tematy i dodaje je do bazy w Notion
 
-## Workflow file
+## Plik workflowu
 
-[`workflow.json`](workflow.json) can be imported into n8n. All API keys, tokens, account and database IDs have been removed and replaced with placeholders like `YOUR_IG_ACCESS_TOKEN`.
+[`workflow.json`](workflow.json) można zaimportować do n8n. Wszystkie klucze API, tokeny, ID kont i baz danych zostały usunięte i zastąpione nazwami typu `YOUR_IG_ACCESS_TOKEN`.
